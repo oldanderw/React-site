@@ -11,7 +11,7 @@ import React from 'react'
           </span>
           Day
         </h1>
-        <h3 className="tagline"><span>{props.tagline}</span></h3>
+        <h3><span>{props.slogan}</span></h3>
       </header>
     )
 }
