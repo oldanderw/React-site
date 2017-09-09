@@ -12,37 +12,39 @@ class App extends React.Component {
     this.addFish = this.addFish.bind(this)
     this.loadSamples = this.loadSamples.bind(this)
     this.addToOrder = this.addToOrder.bind(this)
+    this.updatefish = this.updatefish.bind(this)
+    this.deleteFish = this.deleteFish.bind(this)
     this.state = {
       fishes: {},
       order: {}
     }
   }
-   componentWillMount() {
-     // this runs right before the <App> is rendered
-     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
-       context: this,
-       state: 'fishes'
-     });
+  componentWillMount() {
+    // this runs right before the <App> is rendered
+    this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
+      context: this,
+      state: 'fishes'
+    });
 
-     // check if there is any order in localStorage
-     const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    // check if there is any order in localStorage
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
 
-     if(localStorageRef) {
-       // update our App component's order state
-       this.setState({
-         order: JSON.parse(localStorageRef)
-       });
-     }
+    if(localStorageRef) {
+      // update our App component's order state
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      });
+    }
 
-   }
+  }
 
-   componentWillUnmount() {
-     base.removeBinding(this.ref);
-   }
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
-   componentWillUpdate(nextProps, nextState) {
-     localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
-   }
+  componentWillUpdate(nextProps, nextState) {
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
+  }
   addFish(fish){
     // update the state
     const copyFishes = {...this.state.fishes}
@@ -51,6 +53,16 @@ class App extends React.Component {
     copyFishes[`fish-${timestamp}`] = fish
     //set state
     this.setState({fishes: copyFishes})
+  }
+  updatefish(key, updatedfish){
+    const fishes = {...this.state.fishes}
+    fishes[key] = updatedfish
+    this.setState({fishes})
+  }
+  deleteFish(key){
+    const fishes = {...this.state.fishes}
+    fishes[key] = null
+    this.setState({fishes})
   }
   loadSamples(){
     this.setState({fishes: simpleFishes})
@@ -72,8 +84,14 @@ class App extends React.Component {
             }
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order}/>
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
+        <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
+        <Inventory
+          fishes={this.state.fishes}
+          addFish={this.addFish}
+          loadSamples={this.loadSamples}
+          updatefish={this.updatefish}
+          deleteFish={this.deleteFish}
+        />
       </div>
     )
   }
