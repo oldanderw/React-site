@@ -14,6 +14,7 @@ class App extends React.Component {
     this.addToOrder = this.addToOrder.bind(this)
     this.updatefish = this.updatefish.bind(this)
     this.deleteFish = this.deleteFish.bind(this)
+    this.deleteFromOrder = this.deleteFromOrder.bind(this)
     this.state = {
       fishes: {},
       order: {}
@@ -24,26 +25,26 @@ class App extends React.Component {
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
-    });
+    })
 
     // check if there is any order in localStorage
-    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`)
 
     if(localStorageRef) {
       // update our App component's order state
       this.setState({
         order: JSON.parse(localStorageRef)
-      });
+      })
     }
 
   }
 
   componentWillUnmount() {
-    base.removeBinding(this.ref);
+    base.removeBinding(this.ref)
   }
 
   componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order));
+    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
   }
   addFish(fish){
     // update the state
@@ -61,8 +62,14 @@ class App extends React.Component {
   }
   deleteFish(key){
     const fishes = {...this.state.fishes}
+    // have to set to null because of the firebase database, otherwise use the delete keyword
     fishes[key] = null
     this.setState({fishes})
+  }
+  deleteFromOrder(key){
+    const order = {...this.state.order}
+    delete order[key]
+    this.setState({order})
   }
   loadSamples(){
     this.setState({fishes: simpleFishes})
@@ -84,7 +91,11 @@ class App extends React.Component {
             }
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
+        <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+          deleteFromOrder={this.deleteFromOrder}
+          params={this.props.params}/>
         <Inventory
           fishes={this.state.fishes}
           addFish={this.addFish}

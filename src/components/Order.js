@@ -8,12 +8,14 @@ class Order extends React.Component {
   renderOrder(key){
     const fish = this.props.fishes[key]
     const count = this.props.order[key]
+    const removeBotton = <button onClick={() => this.props.deleteFromOrder(key)}>&times;</button>;
+
     if(!fish || fish.status === 'unavailable'){
-      return <li key={key}>get fucked, sold out</li>
+      return <li key={key}>get fucked, sold out {removeBotton}</li>
     }
     return(
       <li key={key}>
-        <span>{count}lbs {fish.name}</span>
+        <span>{count}lbs {fish.name} {removeBotton}</span>
         <span className="price">{formatPrice(count * fish.price)}</span>
       </li>
     )
