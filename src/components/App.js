@@ -54,7 +54,7 @@ class App extends React.Component {
     fishes[key] = updatedfish
     this.setState({fishes})
   };
-  deleteFish=(key) =>{
+  deleteFish =(key) =>{
     const fishes = {...this.state.fishes}
     // have to set to null because of the firebase database, otherwise use the delete keyword
     fishes[key] = null
