@@ -17,7 +17,6 @@
     "eslint-config-react-app": "^2.0.0",
     "eslint-plugin-import": "^2.7.0",
     "history": "4.2.0",
-    "prop-types": "^15.5.10",
     "re-base": "2.2.0",
     "react": "15.3.2",
     "react-addons-css-transition-group": "15.3.2",

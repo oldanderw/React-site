@@ -19,4 +19,11 @@ class Fish extends React.Component {
     )
   }
 }
+
+Fish.propTypes = {
+info:React.PropTypes.object,
+index:React.PropTypes.string,
+addToOrder:React.PropTypes.func
+}
+
 export default Fish

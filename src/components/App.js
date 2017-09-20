@@ -6,6 +6,7 @@ import simpleFishes from './sample-fishes'
 import Fish from './Fish'
 import base from '../base'
 
+
 class App extends React.Component {
 
   state = {
@@ -106,5 +107,8 @@ class App extends React.Component {
       </div>
     )
   }
+}
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
 }
 export default App
