@@ -3,7 +3,8 @@ import React from 'react';
 class AddFishForm extends React.Component {
   createFish(event) {
     event.preventDefault();
-    console.log('GOnna make some fish! 🎣');
+    console.log('GOnna make some fish! 👌👈');
+
     const fish = {
       name: this.name.value,
       price: this.price.value,
@@ -11,9 +12,12 @@ class AddFishForm extends React.Component {
       desc: this.desc.value,
       image: this.image.value,
     }
-    console.log(fish)
-    this.props.addFish(fish);
-    this.fishForm.reset();
+    if(fish.name !== ""){
+      this.props.addFish(fish);
+      this.fishForm.reset();
+    }else{
+      console.log('please enter a name for the fish')
+    }
   }
 
   render() {

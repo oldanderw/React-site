@@ -7,19 +7,12 @@ import Fish from './Fish'
 import base from '../base'
 
 class App extends React.Component {
-  constructor(){
-    super()
-    this.addFish = this.addFish.bind(this)
-    this.loadSamples = this.loadSamples.bind(this)
-    this.addToOrder = this.addToOrder.bind(this)
-    this.updatefish = this.updatefish.bind(this)
-    this.deleteFish = this.deleteFish.bind(this)
-    this.deleteFromOrder = this.deleteFromOrder.bind(this)
-    this.state = {
-      fishes: {},
-      order: {}
-    }
-  }
+
+  state = {
+    fishes: {},
+    order: {}
+  };
+
   componentWillMount() {
     // this runs right before the <App> is rendered
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
@@ -46,7 +39,7 @@ class App extends React.Component {
   componentWillUpdate(nextProps, nextState) {
     localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
   }
-  addFish(fish){
+  addFish =(fish)=>{
     // update the state
     const copyFishes = {...this.state.fishes}
     //add in new fish
@@ -54,40 +47,46 @@ class App extends React.Component {
     copyFishes[`fish-${timestamp}`] = fish
     //set state
     this.setState({fishes: copyFishes})
-  }
-  updatefish(key, updatedfish){
+  };
+  updatefish = (key, updatedfish)=>{
     const fishes = {...this.state.fishes}
     fishes[key] = updatedfish
     this.setState({fishes})
-  }
-  deleteFish(key){
+  };
+  deleteFish=(key) =>{
     const fishes = {...this.state.fishes}
     // have to set to null because of the firebase database, otherwise use the delete keyword
     fishes[key] = null
     this.setState({fishes})
-  }
-  deleteFromOrder(key){
+  };
+  deleteFromOrder = (key)=> {
     const order = {...this.state.order}
     delete order[key]
     this.setState({order})
-  }
-  loadSamples(){
+  };
+  loadSamples = () =>{
     this.setState({fishes: simpleFishes})
-  }
-  addToOrder(key){
+  };
+  addToOrder=(key)=>{
+    // the ... make a copy of the state and puts it into the const
     const copyOrder = {...this.state.order}
     copyOrder[key] = copyOrder[key] + 1 || 1
+    console.log(key)
     this.setState({order: copyOrder})
-  }
+  };
  render() {
     return (
+      // one big div around the app cuz react must keep to one parent element
       <div className="catch-of-the-day">
         <div className="menu">
-          <Header slogan="Fresh Seafood Market"/>
+          <Header slogan="The Shit Market"/>
           <ul className="list-of-fishes">
             {
+              // to make a list from a state is .map also index is used cuz you are not allowed to touch key so we make a copy for ourself
               Object.keys(this.state.fishes)
-                .map(key => <Fish key={key} index={key} info={this.state.fishes[key]} addToOrder={this.addToOrder}/>)
+                .map(key =>
+                  <Fish key={key} index={key} info={this.state.fishes[key]} addToOrder={this.addToOrder}/>
+                )
             }
           </ul>
         </div>
@@ -96,7 +95,8 @@ class App extends React.Component {
           order={this.state.order}
           deleteFromOrder={this.deleteFromOrder}
           params={this.props.params}/>
-        <Inventory
+
+         <Inventory
           fishes={this.state.fishes}
           addFish={this.addFish}
           loadSamples={this.loadSamples}

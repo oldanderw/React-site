@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
   const Header= (props) =>{
     return (
@@ -11,8 +12,12 @@ import React from 'react'
           </span>
           Day
         </h1>
-        <h3><span>{props.slogan}</span></h3>
+        <h3 className="slogan"><span>{props.slogan}</span></h3>
       </header>
     )
 }
+
+Header.propTypes = {
+  slogan: PropTypes.string.isRequired
+};﻿
 export default Header
