@@ -14,19 +14,8 @@ class App extends React.Component {
     order: {},
   }
 
-  componentWillMount() {
-    // This runs right before the <App> is rendered
-    this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
-      context: this,
-      state: 'fishes',
-    })
-
-    // Check if there is any order in localStorage
-    const localStorageRef = localStorage.
-    getItem(`order-${this.
-      props.
-      params.
-      storeId}`)
+  // Check if there is any order in localStorage
+  const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`)
 
     if (localStorageRef) {
       // Update our App component's order state
@@ -37,14 +26,6 @@ class App extends React.Component {
 
   }
 
-  componentWillUnmount() {
-    base.removeBinding(this.ref)
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem(`order-${this.props.params.storeId}`,
-    JSON.stringify(nextState.order))
-  }
   addFish =(fish)=> {
     // Update the state
     const copyFishes = {...this.state.fishes}
@@ -63,7 +44,7 @@ class App extends React.Component {
     const fishes = {...this.state.fishes}
     // Have to set to null because of the firebase database,
     // otherwise use the delete keyword
-    fishes[key] = null
+    delete fishes[key]
     this.setState({fishes})
   }
   deleteFromOrder = (key)=> {
@@ -76,7 +57,7 @@ class App extends React.Component {
   }
   addToOrder=(key)=> {
     // The ... make a copy of the state and puts it into the const
-    const copyOrder = {...this.state.order}
+    let copyOrder = {...this.state.order}
     copyOrder[key] = copyOrder[key] + 1 || 1
     console.log(key)
     this.setState({order: copyOrder})

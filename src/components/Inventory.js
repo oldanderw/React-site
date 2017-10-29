@@ -3,18 +3,6 @@ import AddFishForm from './AddFishForm'
 import base from '../base'
 
 class Inventory extends React.Component {
-  state = {
-    uid: null,
-    owner: null,
-  }
-
-  componentDidMount =() => {
-    base.onAuth((user) => {
-      if (user) {
-        this.authHandler(null, {user})
-      }
-    })
-  }
 
   handleChange =(e, key)=> {
     const fish = this.props.fishes[key]
@@ -135,23 +123,6 @@ class Inventory extends React.Component {
   }
 
   render() {
-    const logout = <button onClick={this.logout}>Log Out!</button>
-
-    // Check if they are no logged in at all
-    if (!this.state.uid) {
-      return <div>{this.renderLogin()}</div>
-    }
-
-    // Check if they are the owner of the current store
-    if (this.state.uid !== this.state.owner) {
-      return (
-        <div>
-          <p>Sorry you aren't the owner of this store!</p>
-          {logout}
-        </div>
-      )
-    }
-
     return (
       <div>
         <h2>Inventory</h2>
