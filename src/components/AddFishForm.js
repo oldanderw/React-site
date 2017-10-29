@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
 class AddFishForm extends React.Component {
 
   createFish(event) {
-    event.preventDefault();
-    console.log('GOnna make some fish! 👌👈');
+    event.preventDefault()
+    console.log('GOnna make some fish! 👌👈')
 
     const fish = {
       name: this.name.value,
@@ -14,32 +14,46 @@ class AddFishForm extends React.Component {
       desc: this.desc.value,
       image: this.image.value,
     }
-    if(fish.name !== ""){
-      this.props.addFish(fish);
-      this.fishForm.reset();
-    }else{
+    if (fish.name !== '') {
+      this.props.addFish(fish)
+      this.fishForm.reset()
+    }else {
       console.log('please enter a name for the fish')
     }
   }
 
   render() {
     return (
-      <form ref={(input) => this.fishForm = input} className="fish-edit" onSubmit={(e) => this.createFish(e)}>
-        <input ref={(input) => this.name = input} type="text" placeholder="Fish Name" />
-        <input ref={(input) => this.price = input} type="text" placeholder="Fish Price" />
-        <select ref={(input) => this.status = input}>
-          <option value="available">Fresh!</option>
-          <option value="unavailable">Sold Out!</option>
+      <form
+        ref={(input) => this.fishForm = input}
+        className='fish-edit'
+        onSubmit={(e) => this.createFish(e)}>
+        <input
+          ref={(input) => this.name = input}
+          type='text' placeholder='Fish Name' />
+        <input
+          ref={(input) => this.price = input}
+          type='text'
+          placeholder='Fish Price' />
+        <select
+          ref={(input) => this.status = input}>
+          <option value='available'>Fresh!</option>
+          <option value='unavailable'>Sold Out!</option>
         </select>
-        <textarea ref={(input) => this.desc = input} placeholder="Fish Desc" ></textarea>
-        <input ref={(input) => this.image = input} type="text" placeholder="Fish Image" />
-        <button type="submit">+ Add Item</button>
+        <textarea
+          ref={(input) => this.desc = input}
+          placeholder='Fish Desc' ></textarea>
+        <input
+          ref={(input) => this.image = input}
+          type='text'
+          placeholder='Fish Image' />
+        <button type='submit'>+ Add Item</button>
       </form>
     )
   }
 }
 AddFishForm.propTypes = {
-  addFish: PropTypes.func.isRequired
+  addFish: PropTypes.func.isRequired,
 }
 
-export default AddFishForm;
+export default AddFishForm

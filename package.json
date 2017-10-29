@@ -16,6 +16,7 @@
   "dependencies": {
     "eslint-config-react-app": "^2.0.0",
     "eslint-plugin-import": "^2.7.0",
+    "firebase": "^4.3.1",
     "history": "4.2.0",
     "re-base": "2.2.0",
     "react": "15.3.2",

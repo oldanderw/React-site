@@ -11,23 +11,27 @@ class App extends React.Component {
 
   state = {
     fishes: {},
-    order: {}
-  };
+    order: {},
+  }
 
   componentWillMount() {
-    // this runs right before the <App> is rendered
+    // This runs right before the <App> is rendered
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
       context: this,
-      state: 'fishes'
+      state: 'fishes',
     })
 
-    // check if there is any order in localStorage
-    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`)
+    // Check if there is any order in localStorage
+    const localStorageRef = localStorage.
+    getItem(`order-${this.
+      props.
+      params.
+      storeId}`)
 
-    if(localStorageRef) {
-      // update our App component's order state
+    if (localStorageRef) {
+      // Update our App component's order state
       this.setState({
-        order: JSON.parse(localStorageRef)
+        order: JSON.parse(localStorageRef),
       })
     }
 
@@ -38,55 +42,62 @@ class App extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
+    localStorage.setItem(`order-${this.props.params.storeId}`,
+    JSON.stringify(nextState.order))
   }
-  addFish =(fish)=>{
-    // update the state
+  addFish =(fish)=> {
+    // Update the state
     const copyFishes = {...this.state.fishes}
-    //add in new fish
+    // Add in new fish
     const timestamp = Date.now()
     copyFishes[`fish-${timestamp}`] = fish
-    //set state
+    // Set state
     this.setState({fishes: copyFishes})
-  };
-  updatefish = (key, updatedfish)=>{
+  }
+  updatefish = (key, updatedfish)=> {
     const fishes = {...this.state.fishes}
     fishes[key] = updatedfish
     this.setState({fishes})
-  };
-  deleteFish =(key) =>{
+  }
+  deleteFish =(key) => {
     const fishes = {...this.state.fishes}
-    // have to set to null because of the firebase database, otherwise use the delete keyword
+    // Have to set to null because of the firebase database,
+    // otherwise use the delete keyword
     fishes[key] = null
     this.setState({fishes})
-  };
+  }
   deleteFromOrder = (key)=> {
     const order = {...this.state.order}
     delete order[key]
     this.setState({order})
-  };
-  loadSamples = () =>{
+  }
+  loadSamples = () => {
     this.setState({fishes: simpleFishes})
-  };
-  addToOrder=(key)=>{
-    // the ... make a copy of the state and puts it into the const
+  }
+  addToOrder=(key)=> {
+    // The ... make a copy of the state and puts it into the const
     const copyOrder = {...this.state.order}
     copyOrder[key] = copyOrder[key] + 1 || 1
     console.log(key)
     this.setState({order: copyOrder})
-  };
- render() {
+  }
+  render() {
     return (
-      // one big div around the app cuz react must keep to one parent element
-      <div className="catch-of-the-day">
-        <div className="menu">
-          <Header slogan="The Shit Market"/>
-          <ul className="list-of-fishes">
+      // One big div around the app cuz react must keep to one parent element
+      <div className='catch-of-the-day'>
+        <div className='menu'>
+          <Header slogan='The Shit Market'/>
+          <ul className='list-of-fishes'>
             {
-              // to make a list from a state is .map also index is used cuz you are not allowed to touch key so we make a copy for ourself
+              // To make a list from a state is .map also index is used cuz
+              // you are not allowed to touch key so we make a copy for ourself
               Object.keys(this.state.fishes)
                 .map(key =>
-                  <Fish key={key} index={key} info={this.state.fishes[key]} addToOrder={this.addToOrder}/>
+                  <Fish
+                    key={key}
+                    index={key}
+                    info={this.state.fishes[key]}
+                    addToOrder={this.addToOrder}/>
                 )
             }
           </ul>
@@ -109,6 +120,6 @@ class App extends React.Component {
   }
 }
 App.propTypes = {
-  params: React.PropTypes.object.isRequired
+  params: React.PropTypes.object.isRequired,
 }
 export default App
