@@ -5,7 +5,7 @@ import Inventory from './Inventory'
 import simpleFishes from './sample-fishes'
 import Fish from './Fish'
 import base from '../base'
-
+import PropTypes from 'prop-types'
 
 class App extends React.Component {
 
@@ -115,6 +115,6 @@ class App extends React.Component {
   }
 }
 App.propTypes = {
-  params: React.PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
 }
 export default App

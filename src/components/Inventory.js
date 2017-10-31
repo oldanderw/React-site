@@ -1,7 +1,6 @@
 import React from 'react'
 import AddFishForm from './AddFishForm'
 import base from '../base'
-// Import firebase from 'firebase';
 
 class Inventory extends React.Component {
   constructor() {
@@ -174,15 +173,6 @@ class Inventory extends React.Component {
       </div>
     )
   }
-
-  // Static propTypes = {
-  //   fishes: React.PropTypes.object.isRequired,
-  //   updateFish: React.PropTypes.func.isRequired,
-  //   removeFish: React.PropTypes.func.isRequired,
-  //   addFish: React.PropTypes.func.isRequired,
-  //   loadSamples: React.PropTypes.func.isRequired,
-  //   storeId: React.PropTypes.string.isRequired,
-  // };
 }
 
 export default Inventory;
