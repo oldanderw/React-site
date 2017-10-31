@@ -1,6 +1,7 @@
 import React from 'react'
 import {formatPrice} from '../helpers'
 import CSSTransitionGroup from 'react-addons-css-transition-group'
+import PropTypes from 'prop-types'
 
 
 class Order extends React.Component {
@@ -72,9 +73,8 @@ class Order extends React.Component {
   }
 }
 Order.propTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  order: React.PropTypes.object.isRequired,
-  deleteFromOrder: React.PropTypes.func.isRequired,
-
+  fishes: PropTypes.object.isRequired,
+  order: PropTypes.object.isRequired,
+  deleteFromOrder: PropTypes.func.isRequired,
 }
 export default Order
